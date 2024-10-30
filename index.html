@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UltraTech</title>
+    <link rel="shortcut icon" href="https://utp24stg.wpenginepowered.com/wp-content/uploads/2024/08/Ultratech-Plus-Fav-Icon.png">
+    <link rel="stylesheet" href="css/home-style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.13/lottie.min.js"></script>
+</head>
+<body>
+
+    <div class="containers">
+        
+    <div class="content">
+        <div class="container">
+            <div class="nav">
+                <div class="contaner" onclick="toggleMenu(this)">
+                    <div class="bar1 baar"></div>
+                    <!-- <div class="bar2"></div> -->
+                    <div class="bar3"></div>
+                </div>
+                <div class="button">
+                    <button class="btn2" onclick="location.href='contactUs.html#contact-section'">Let's Connect</button>
+                </div>
+                
+                <div class="clear"></div>
+            </div>
+            <div class="text">
+                <p>Connecting people and simplifying financial management
+                    <br>
+                    — experience seamless technology with UltraTech Plus!</p>
+            </div>
+            <div class="button2">
+                <button class="btn"><a href="abutUs.html">Peek Inside</a></button>
+                <img src="https://raw.githubusercontent.com/duhsmostafa/arrow/0756d83f62746d401c3e101977e8ae0126252ebe/arrow-09.svg" alt="">
+            </div>
+            <div class="logo-image-down">
+                <img src="images/Ultratech-Plus-Logo-Wide-EN-White.png" alt="Ultratech Logo">
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <!-- Overlay to darken the background -->
+    <div class="overlay"></div>
+
+    <!-- The sliding menu div -->
+    <div class="side-menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="abutUs.html">Company</a></li>
+            <li><a href="Careers – V2 – Duha – UltraTech+.html">Careers</a></li>
+        </ul>
+    </div>
+
+    <div id="logoAnimation"></div>
+    <div id="animation"></div>
+
+    <script>
+        function toggleMenu(x) {
+            x.classList.toggle("change");  // Toggle between bars and X
+    
+            // Toggle the side menu and overlay
+            var menu = document.querySelector('.side-menu');
+            var overlay = document.querySelector('.overlay');
+            menu.classList.toggle('show');
+            overlay.classList.toggle('show');  // Show or hide the overlay
+        }
+    
+        // Close the menu and overlay when clicking outside of the menu
+        document.addEventListener('click', function(event) {
+            var menu = document.querySelector('.side-menu');
+            var hamburger = document.querySelector('.contaner');
+            var overlay = document.querySelector('.overlay');
+    
+            // Check if the click was outside the menu and hamburger
+            if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+                menu.classList.remove('show');
+                overlay.classList.remove('show');  // Hide the overlay
+                hamburger.classList.remove('change'); // Reset the hamburger menu back to bars
+            }
+        });
+    
+        document.addEventListener('DOMContentLoaded', function () {
+            // Function to load and play the logo animation
+            function playLogoAnimation() {
+                var logoAnimation = lottie.loadAnimation({
+                    container: document.getElementById('logoAnimation'),
+                    renderer: 'svg',
+                    loop: false,
+                    autoplay: true,
+                    path: "logo-animation.json"
+                });
+    
+                // Hide logo animation and show logo image after 5 seconds
+                setTimeout(function () {
+                    document.getElementById('logoAnimation').style.display = 'none';
+                }, 5000);
+            }
+    
+            // Function to load the second animation
+            function loadSecondAnimation() {
+                var secondAnimation = lottie.loadAnimation({
+                    container: document.getElementById('animation'),
+                    renderer: 'svg',
+                    loop: false,
+                    autoplay: true,
+                    path: "website_intro-first-file-2.json"
+                });
+            }
+    
+            // Show content function to reveal the main container
+            function showContent() {
+                var container = document.querySelector('.container');
+                container.classList.remove('hidden');
+                container.classList.add('fade-in');
+            }
+    
+            // Check if logo animation has been played in this session
+            if (!sessionStorage.getItem('logoAnimationPlayed')) {
+                // First visit to the site
+                playLogoAnimation();  // Play the logo animation on first load
+                sessionStorage.setItem('logoAnimationPlayed', 'true'); // Set session flag
+                setTimeout(loadSecondAnimation, 5000); // Start second animation after 5 seconds
+                setTimeout(showContent, 4800); // Delay content reveal until animation completes
+            } else if (performance.navigation.type === 1) {
+                // This means the page was refreshed
+                playLogoAnimation(); // Play the logo animation on refresh
+                setTimeout(loadSecondAnimation, 0); // Start second animation after 5 seconds
+                setTimeout(showContent, 4800); // Delay content reveal until animation completes
+            } else {
+                // This means navigation occurred (not a refresh or first visit)
+                document.getElementById('logoAnimation').style.display = 'none';
+                loadSecondAnimation();
+                showContent(); // Display content immediately
+            }
+        });
+    </script>
+    
+</body>
+</html>
+
